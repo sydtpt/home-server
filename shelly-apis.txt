@@ -1,0 +1,14 @@
+Relay on:
+http://192.168.1.8/relay/0?turn=on
+
+Relay off:
+http://192.168.1.8/relay/0?turn=off
+
+Relay toggle:
+http://192.168.1.8/relay/0?turn=toggle
+
+Relay on with timer (in seconds):
+http://192.168.1.8/relay/0?turn=on&timer=30
+
+Relay off with timer (in seconds):
+http://192.168.1.8/relay/0?turn=off&timer=30

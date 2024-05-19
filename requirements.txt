@@ -1,0 +1,8 @@
+Flask==2.2.2
+flask-cors
+gunicorn
+Werkzeug==2.2.2
+retry_requests
+requests_cache
+pandas
+apscheduler
