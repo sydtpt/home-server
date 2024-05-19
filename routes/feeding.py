@@ -10,7 +10,7 @@ cross_origin()
 @feeding_routes.route('/')
 def summary():
     feeding_data = {
-        'watter': '5d',
+        'watter': '05d',
         'leaf': '10d',
         'soil': '20d'      
     }

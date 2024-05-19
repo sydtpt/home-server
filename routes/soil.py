@@ -34,7 +34,7 @@ def log():
         content = request.get_json()
         with open("./data/soil.csv", 'a') as f:
             writer = csv.writer(f)
-            writer.writerow([content['humidity_soil'], datetime.now()])
+            writer.writerow([content['humidity_soil'],'sensor_1' ,datetime.now()])
         response = make_response({}, 201)
         return response
     else:
