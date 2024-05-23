@@ -13,20 +13,7 @@ def soil():
     response = make_response({'temperature': 20.1, 'humidity': 60}, 200)
     response.mimetype = "application/json"
     return response
-          
-cross_origin()
-@soil_routes.route('/summary')
-def summary():
-    response = make_response(
-        {
-            'max_temperature': 20.1,
-            'avg_temperature': 16.2,
-            'max_humidity': 70,
-            'avg_humidity': 44
-        }, 200)
-    response.mimetype = "application/json"
-    return response
-
+   
 cross_origin()
 @soil_routes.route('/log', methods=['GET', 'POST'])
 def log():
@@ -35,6 +22,7 @@ def log():
         with open("./data/soil.csv", 'a') as f:
             writer = csv.writer(f)
             writer.writerow([content['humidity_soil'],'sensor_1' ,datetime.now()])
+            f.close()
         response = make_response({}, 201)
         return response
     else:

@@ -35,6 +35,7 @@ def log():
         with open("./data/air.csv", 'a') as f:
             writer = csv.writer(f)
             writer.writerow([content['temperature'], content['humidity'], datetime.now()])
+            f.close()
         response = make_response({}, 201)
         return response
     else:
