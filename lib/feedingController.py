@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 class feedingController:
-    def lastSoilFeeding(name):
+    def lastSoilFeeding(self,name):
         air_history = pd.read_csv('./data/soil-fert.csv')
         air_history['timestamp'] = pd.to_datetime(air_history['timestamp'])
         filtered_df = air_history[air_history['name'] == name]
@@ -12,7 +12,7 @@ class feedingController:
         daysDiff = datetime.now() - lastFert
         return str(daysDiff.days) + "d"
     
-    def lastLeafFeeding(name):
+    def lastLeafFeeding(self,name):
         air_history = pd.read_csv('./data/leaf-fert.csv')
         air_history['timestamp'] = pd.to_datetime(air_history['timestamp'])
         filtered_df = air_history[air_history['name'] == name]
@@ -21,7 +21,7 @@ class feedingController:
         daysDiff = datetime.now() - lastFert
         return str(daysDiff.days) + "d"
     
-    def lastSoilWatter(name):
+    def lastSoilWatter(self,name):
         air_history = pd.read_csv('./data/watering.csv')
         air_history['timestamp'] = pd.to_datetime(air_history['timestamp'])
         filtered_df = air_history[air_history['name'] == name]
