@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from flask_cors import cross_origin
 import csv
 import pandas as pd
+from airController import AirController
 
 feeding_routes = Blueprint(
     'feeding', __name__,
@@ -11,40 +12,15 @@ feeding_routes = Blueprint(
 cross_origin()
 @feeding_routes.route('/', methods=['GET'], strict_slashes=False)
 def summary():
-
-    air_history = pd.read_csv('./data/air.csv')
-    # Convert the 'timestamp' column to datetime format
-    air_history['timestamp'] = pd.to_datetime(df['timestamp'])
-
-    # Get the current time
-    now = datetime.now()
-
-    # Calculate the time 48 hours ago
-    time_48_hours_ago = now - timedelta(hours=48)
-
-    # Filter rows where the timestamp is within the last 48 hours
-    filtered_df = air_history[air_history['timestamp'] >= time_48_hours_ago]
-
-    max_temperature = filtered_df['temperature'].max()
-    avg_temperature = round(filtered_df['temperature'].mean(),1)
-    max_humidity = filtered_df['humidity'].max()
-    avg_humidity = round(filtered_df['humidity'].mean(), 1)
-    
-
-
     feeding_data = {
         'watter': '05d',
         'leaf': '10d',
         'soil': '20d',
-        'max_temperature': int(max_temperature),
-        'avg_temperature': float(avg_temperature),
-        'max_humidity': int(max_humidity),
-        'avg_humidity': float(avg_humidity)
+        'max_temperature': AirController.max_temperature(48),
+        'avg_temperature':  AirController.avg_temperature(48),
+        'max_humidity':  AirController.max_humidity(48),
+        'avg_humidity':  AirController.avg_humidity(48)
     }
-    print("####")
-    print(feeding_data)
-    print("####")
-    print(jsonify(feeding_data))
     response = make_response(jsonify(feeding_data), 200)
     response.mimetype = "application/json"
     return response
