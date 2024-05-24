@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 class airController:
-    def max_temperature(self, last_hours: int):
+    def max_temperature(last_hours: int):
         air_history = pd.read_csv('./data/air.csv')
         air_history['timestamp'] = pd.to_datetime(air_history['timestamp'])
         now = datetime.now()
@@ -12,7 +12,7 @@ class airController:
         max_temperature = filtered_df['temperature'].max()
         return int(max_temperature)
 
-    def avg_temperature(self, last_hours: int):
+    def avg_temperature( last_hours: int):
         air_history = pd.read_csv('./data/air.csv')
         air_history['timestamp'] = pd.to_datetime(air_history['timestamp'])
         now = datetime.now()
@@ -21,7 +21,7 @@ class airController:
         avg_temperature = round(filtered_df['temperature'].mean(), 1)
         return float(avg_temperature)
 
-    def max_humidity(self, last_hours: int):
+    def max_humidity( last_hours: int):
         air_history = pd.read_csv('./data/air.csv')
         air_history['timestamp'] = pd.to_datetime(air_history['timestamp'])
         now = datetime.now()
@@ -30,7 +30,7 @@ class airController:
         max_humidity = filtered_df['humidity'].max()
         return int(max_humidity)
 
-    def avg_humidity(self, last_hours: int):
+    def avg_humidity( last_hours: int):
         air_history = pd.read_csv('./data/air.csv')
         air_history['timestamp'] = pd.to_datetime(air_history['timestamp'])
         now = datetime.now()
@@ -39,7 +39,7 @@ class airController:
         avg_humidity = round(filtered_df['humidity'].mean(), 1)
         return float(avg_humidity)
     
-    def log(self, temperature: float, humidity: float):
+    def log( temperature: float, humidity: float):
         with open("./data/air.csv", 'a') as f:
             writer = csv.writer(f)
             writer.writerow([temperature, humidity, datetime.now()])

@@ -1,7 +1,7 @@
 from flask import Blueprint, request, make_response
 from datetime import datetime
 from flask_cors import cross_origin
-from lib import airController
+from lib.airController import airController
 
 
 air_routes = Blueprint(
