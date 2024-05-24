@@ -49,7 +49,7 @@ cross_origin()
 def water():
     if request.method == 'POST':
         content = request.get_json()
-        with open("./data/leaf-fert.csv", 'a') as f:
+        with open("./data/watering.csv", 'a') as f:
             writer = csv.writer(f)
             writer.writerow([content['plant'] ,datetime.now()])
             f.close()
