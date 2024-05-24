@@ -2,7 +2,7 @@ import csv
 import pandas as pd
 from datetime import datetime, timedelta
 
-class AirController:
+class airController:
     def max_temperature(self, last_hours: int):
         air_history = pd.read_csv('./data/air.csv')
         air_history['timestamp'] = pd.to_datetime(air_history['timestamp'])

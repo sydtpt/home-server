@@ -1,7 +1,7 @@
 from flask import Blueprint, request, make_response
 from datetime import datetime
 from flask_cors import cross_origin
-from airController import AirController
+from ..lib import airController
 
 
 air_routes = Blueprint(
@@ -20,7 +20,7 @@ cross_origin()
 def log():
     if request.method == 'POST':
         content = request.get_json()
-        AirController.log(content['temperature'], content['humidity'])
+        airController.log(content['temperature'], content['humidity'])
         response = make_response({}, 201)
         return response
     else:
