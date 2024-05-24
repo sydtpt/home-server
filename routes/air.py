@@ -18,9 +18,10 @@ def air():
 cross_origin()
 @air_routes.route('/log', methods=['GET', 'POST'])
 def log():
+    air = airController()
     if request.method == 'POST':
         content = request.get_json()
-        airController.log(content['temperature'], content['humidity'])
+        air.log(content['temperature'], content['humidity'])
         response = make_response({}, 201)
         return response
     else:
