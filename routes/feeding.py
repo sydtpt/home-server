@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from flask_cors import cross_origin
 import csv
 import pandas as pd
-from ..lib import airController
+from lib import airController
 
 feeding_routes = Blueprint(
     'feeding', __name__,
