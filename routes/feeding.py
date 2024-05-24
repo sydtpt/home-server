@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from flask_cors import cross_origin
 import csv
 import pandas as pd
-from lib import airController
+from lib import airController, feedingController
 
 feeding_routes = Blueprint(
     'feeding', __name__,
@@ -12,14 +12,16 @@ feeding_routes = Blueprint(
 cross_origin()
 @feeding_routes.route('/', methods=['GET'], strict_slashes=False)
 def summary():
+    feeding = feedingController.feedingController()
+    air = airController.airController()
     feeding_data = {
-        'watter': '05d',
-        'leaf': '10d',
-        'soil': '20d',
-        'max_temperature': airController.max_temperature(48),
-        'avg_temperature':  airController.avg_temperature(48),
-        'max_humidity':  airController.max_humidity(48),
-        'avg_humidity':  airController.avg_humidity(48)
+        'watter': feeding.lastSoilWatter('monstera'),
+        'leaf': feeding.lastLeafFeeding('monstera'),
+        'soil': feeding.lastSoilFeeding('monstera'),
+        'max_temperature': air.max_temperature(48),
+        'avg_temperature':  air.avg_temperature(48),
+        'max_humidity':  air.max_humidity(48),
+        'avg_humidity':  air.avg_humidity(48)
     }
     response = make_response(jsonify(feeding_data), 200)
     response.mimetype = "application/json"
