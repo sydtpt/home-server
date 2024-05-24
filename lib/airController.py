@@ -39,7 +39,7 @@ class airController:
         avg_humidity = round(filtered_df['humidity'].mean(), 1)
         return float(avg_humidity)
     
-    def log( temperature: float, humidity: float):
+    def log(self, temperature: float, humidity: float):
         with open("./data/air.csv", 'a') as f:
             writer = csv.writer(f)
             writer.writerow([temperature, humidity, datetime.now()])
