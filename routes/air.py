@@ -3,7 +3,6 @@ from datetime import datetime
 from flask_cors import cross_origin
 from lib.airController import airController
 
-
 air_routes = Blueprint(
     'air', __name__,
     url_prefix='/api/air')
@@ -11,7 +10,10 @@ air_routes = Blueprint(
 cross_origin()
 @air_routes.route('/')
 def air():
-    response = make_response({'temperature': 20.1, 'humidity': 60}, 200)
+    air = airController()
+    temperature = air.temperature()
+    humidity = air.humidity()
+    response = make_response({'temperature': temperature, 'humidity': humidity}, 200)
     response.mimetype = "application/json"
     return response
           

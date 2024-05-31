@@ -1,3 +1,6 @@
+import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 import csv
 import http.client
 import pandas as pd
@@ -5,6 +8,7 @@ from datetime import datetime, timedelta
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 import asyncio
+from deviceController import deviceController
     
 class scheduleController:
     def delete_line(self, index, filename = "./data/schedule.csv"):
@@ -42,17 +46,19 @@ class scheduleController:
         tasks = self.getElegibleTasks()
         for index, row in tasks.iterrows():
             print(f"Device: {row['device']} - Value: {row['action']} - Hour: {row['hour']}")
-            if row['device'] == 'sansi' and row['action'] == 1:
+            if row['action'] == 1:
                 print("Turning on")
-                conn = http.client.HTTPConnection("192.168.1.8")
+                ip = deviceController.getDomain(row['device'])
+                conn = http.client.HTTPConnection(ip)
                 conn.request("GET", "/relay/0?turn=on")
                 response = conn.getresponse()
                 data = response.read()
                 print(data)
                 conn.close()
-            if row['device'] == 'sansi' and row['action'] == 0:
+            if row['action'] == 0:
                 print("Turning off")
-                conn = http.client.HTTPConnection("192.168.1.8")
+                ip = deviceController.getDomain(row['device'])
+                conn = http.client.HTTPConnection(ip)
                 conn.request("GET", "/relay/0?turn=off")
                 response = conn.getresponse()
                 data = response.read()
